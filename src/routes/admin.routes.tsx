@@ -95,24 +95,3 @@ export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
 
   return acc;
 }, []);
-
-//! Hard coded way
-
-// export const adminPaths = [
-//   {
-//     path: 'dashboard',
-//     element: <AdminDashboard />,
-//   },
-//   {
-//     path: 'create-student',
-//     element: <CreateStudent />,
-//   },
-//   {
-//     path: 'create-admin',
-//     element: <CreateAdmin />,
-//   },
-//   {
-//     path: 'create-faculty',
-//     element: <CreateFaculty />,
-//   },
-// ];
