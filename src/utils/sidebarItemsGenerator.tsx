@@ -16,7 +16,7 @@ export const generateSidebarItems = (
 
     return {
       key: item.name,
-      label: <NavLink to={`${basePath}/${item.path}`}>{item.name}</NavLink>,
+      label: <NavLink to={`${item.path}`}>{item.name}</NavLink>,
     };
   });
 };
