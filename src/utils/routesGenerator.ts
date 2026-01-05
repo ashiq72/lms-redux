@@ -1,25 +1,21 @@
-import type { TRoute, TUserPath } from "../types";
+import type { RouteObject } from "react-router-dom";
+import type { TUserPath } from "../types";
 
-export const routeGenerator = (items: TUserPath[]) => {
-  const routes = items.reduce((acc: TRoute[], item) => {
+export const generateRoutes = (items: TUserPath[]): RouteObject[] => {
+  return items.flatMap((item) => {
+    const routes: RouteObject[] = [];
+
     if (item.path && item.element) {
-      acc.push({
+      routes.push({
         path: item.path,
         element: item.element,
       });
     }
 
     if (item.children) {
-      item.children.forEach((child) => {
-        acc.push({
-          path: child.path!,
-          element: child.element,
-        });
-      });
+      routes.push(...generateRoutes(item.children));
     }
 
-    return acc;
-  }, []);
-
-  return routes;
+    return routes;
+  });
 };
