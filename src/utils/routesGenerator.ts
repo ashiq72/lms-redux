@@ -17,7 +17,6 @@ export const routeGenerator = (items: TUserPath[]) => {
         });
       });
     }
-
     return acc;
   }, []);
 
