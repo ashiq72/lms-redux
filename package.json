@@ -12,14 +12,17 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "antd": "^5.27.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.8.1"
+    "react-router-dom": "^7.8.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/node": "^25.0.3",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
