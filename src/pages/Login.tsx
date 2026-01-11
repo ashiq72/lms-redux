@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
 import PHInupt from "../components/form/PHInupt";
+import { Row } from "antd";
+import type { FieldValues } from "react-hook-form";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const { register, handleSubmit } = useForm<{
-  //   id: string;
-  //   password: string;
-  // }>();
+
+  const defaultValues = { id: "2025010001", password: "ami123" };
   const [login] = useLoginMutation();
 
-  const onSubmit = async (data: { id: string; password: string }) => {
+  const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in...");
     try {
       const userInfo = { id: data.id, password: data.password };
@@ -32,15 +32,16 @@ export default function Login() {
     }
   };
   return (
-    <PHForm onSubmit={onSubmit}>
-      <div>Login Page</div>
-      <div>
+    <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <div>Login Page</div>
+
         <PHInupt type="text" name="id" label="Id" />
-      </div>
-      <div>
+
         <PHInupt type="password" name="password" label="Password" />
-      </div>
-      <button type="submit">Login</button>
-    </PHForm>
+
+        <button type="submit">Login</button>
+      </PHForm>
+    </Row>
   );
 }

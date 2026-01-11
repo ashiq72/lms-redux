@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 interface PHInputProps {
   type: string;
@@ -7,12 +7,16 @@ interface PHInputProps {
 }
 
 const PHInupt = ({ type, name, label }: PHInputProps) => {
-  const { register } = useFormContext();
   return (
-    <>
-      {label && <label htmlFor={name}>{label}:</label>}
-      <input type={type} id={name} {...register(name)} />
-    </>
+    <div
+      style={{ marginBottom: "20px", display: "flex", flexDirection: "column" }}
+    >
+      {label ? label : null} :
+      <Controller
+        name={name}
+        render={({ field }) => <input type={type} id={name} {...field} />}
+      />
+    </div>
   );
 };
 
