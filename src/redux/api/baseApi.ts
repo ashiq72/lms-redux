@@ -1,6 +1,12 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
+import { logout, setUser } from "../features/auth/authSlice";
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -14,41 +20,42 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRefreshToken = async (
-  args: any,
-  api: any,
-  extraOptions: any
-) => {
-  // 1️⃣ First request
+const baseQueryWithRefreshToken: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
-    // 2️⃣ Call refresh token using baseQuery (IMPORTANT)
-    const refreshResult = await baseQuery(
+    const refreshRes = await fetch(
+      "http://localhost:5000/api/v1/auth/refresh-token",
       {
-        url: "/auth/refresh-token",
         method: "POST",
-      },
-      api,
-      extraOptions
+        credentials: "include",
+      }
     );
 
-    if (refreshResult.data) {
-      // 3️⃣ Save new access token in redux
-      const newToken = (refreshResult.data as any).accessToken;
-
-      api.dispatch({
-        type: "auth/setToken",
-        payload: newToken,
-      });
-
-      // 4️⃣ Retry original request with new token
-      result = await baseQuery(args, api, extraOptions);
+    if (!refreshRes.ok) {
+      api.dispatch(logout());
+      return result;
     }
-    //  else {
-    //   // 5️⃣ Refresh token failed → logout
-    //   // api.dispatch({ type: "auth/logout" });
-    // }
+
+    const data = await refreshRes.json();
+    const user = (api.getState() as RootState).auth.user;
+
+    if (user && data?.data?.accessToken) {
+      api.dispatch(
+        setUser({
+          user,
+          token: data.data.accessToken,
+        })
+      );
+
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
+    }
   }
 
   return result;

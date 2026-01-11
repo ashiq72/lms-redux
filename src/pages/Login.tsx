@@ -1,18 +1,19 @@
-import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser, type TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForm from "../components/form/PHForm";
+import PHInupt from "../components/form/PHInupt";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<{
-    id: string;
-    password: string;
-  }>();
+  // const { register, handleSubmit } = useForm<{
+  //   id: string;
+  //   password: string;
+  // }>();
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: { id: string; password: string }) => {
@@ -31,17 +32,15 @@ export default function Login() {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <PHForm onSubmit={onSubmit}>
       <div>Login Page</div>
       <div>
-        <label htmlFor="id">Id:</label>
-        <input type="text" id="id" {...register("id")} />
+        <PHInupt type="text" name="id" label="Id" />
       </div>
       <div>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" {...register("password")} />
+        <PHInupt type="password" name="password" label="Password" />
       </div>
       <button type="submit">Login</button>
-    </form>
+    </PHForm>
   );
 }
