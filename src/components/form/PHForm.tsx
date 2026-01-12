@@ -1,3 +1,4 @@
+import { Form } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
 import type { SubmitHandler, FieldValues } from "react-hook-form";
 
@@ -20,7 +21,9 @@ const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+        {children}
+      </Form>
     </FormProvider>
   );
 };
