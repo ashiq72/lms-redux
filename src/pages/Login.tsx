@@ -13,7 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const defaultValues = { id: "2025010001", password: "ami123" };
+  const defaultValues = { id: "A-0001", password: "ami123" };
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {

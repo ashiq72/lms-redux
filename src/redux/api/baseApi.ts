@@ -7,6 +7,7 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
+// import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -26,6 +27,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
+
+  // if (result.error && result.error.status === 404) {
+  //   return toast.error("User not found.");
+  // }
 
   if (result.error?.status === 401) {
     const refreshRes = await fetch(
