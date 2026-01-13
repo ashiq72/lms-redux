@@ -3,6 +3,11 @@ import PHForm from "../../../components/form/PHForm";
 import { Button, Card, Col, Flex, Typography } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { monthOptions } from "../../../constants/global";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useCreateAcademicManagementMutation } from "../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
+import type { TResponse } from "../../../types/global";
 
 const { Title } = Typography;
 
@@ -19,7 +24,11 @@ const yearOptions = [0, 1, 2, 3, 4, 5].map((number) => ({
 }));
 
 const CreateAcademicSemester = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const [createAcademic] = useCreateAcademicManagementMutation();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating academic semester...");
+
     const name = nameOptions.find((item) => item.value === data.name)?.label;
 
     const semesterData = {
@@ -30,8 +39,64 @@ const CreateAcademicSemester = () => {
       endMonth: data.endMonth,
     };
 
-    console.log(semesterData);
+    try {
+      const result = (await createAcademic(semesterData)) as TResponse;
+
+      if (result.error) {
+        toast.success(result.error?.data?.message, { id: toastId });
+      } else {
+        toast.success("Academic semester created successfully", {
+          id: toastId,
+        });
+      }
+    } catch {
+      toast.error("Failed to create academic semester", { id: toastId });
+    }
   };
+  const academicSemesterSchema = z.object({
+    name: z.enum(["01", "02", "03"], {
+      message: "Semester name is required",
+    }),
+    year: z.string().regex(/^\d{4}$/, "Invalid year"),
+    startMonth: z.enum(
+      [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      {
+        message: "Start month is required",
+      }
+    ),
+    endMonth: z.enum(
+      [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      {
+        message: "End month is required",
+      }
+    ),
+  });
 
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
@@ -41,7 +106,10 @@ const CreateAcademicSemester = () => {
             Create Academic Semester
           </Title>
 
-          <PHForm onSubmit={onSubmit}>
+          <PHForm
+            onSubmit={onSubmit}
+            resolver={zodResolver(academicSemesterSchema)}
+          >
             <PHSelect
               label="Semester Name"
               name="name"
