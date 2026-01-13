@@ -6,14 +6,24 @@ import PHSelect from "../../../components/form/PHSelect";
 
 const CreateAcademicSemester = () => {
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const semesterData = {
+      name: data.name,
+      code: data.value,
+    };
+    console.log(semesterData);
   };
+
+  const nameOptions = [
+    { value: "01", label: "Autumn" },
+    { value: "02", label: "Summer" },
+    { value: "03", label: "Fall" },
+  ];
   return (
     <Flex justify="center" align="middle" style={{ height: "100vh" }}>
       <Col span={6}>
         <PHForm onSubmit={onsubmit}>
           <PHInupt type="text" name="name" label="Name" />
-          <PHSelect />
+          <PHSelect label="Name" name="name" options={nameOptions} />
           <Button htmlType="submit">Submit</Button>
         </PHForm>
       </Col>
