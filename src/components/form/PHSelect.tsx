@@ -16,25 +16,27 @@ const PHSelect = ({ label, name, options, placeholder }: PHSelectProps) => {
   const { control } = useFormContext();
 
   return (
-    <Form.Item label={label}>
-      <Controller
-        name={name}
-        control={control}
-        rules={{ required: `${label} is required` }}
-        render={({ field, fieldState: { error } }) => (
-          <>
-            <Select
-              {...field}
-              placeholder={placeholder}
-              size="large"
-              style={{ width: "100%" }}
-              options={options}
-            />
-            {error && <small style={{ color: "red" }}>{error.message}</small>}
-          </>
-        )}
-      />
-    </Form.Item>
+    <>
+      <Form.Item label={label}>
+        <Controller
+          name={name}
+          control={control}
+          rules={{ required: `${label} is required` }}
+          render={({ field, fieldState: { error } }) => (
+            <>
+              <Select
+                {...field}
+                placeholder={placeholder}
+                size="large"
+                style={{ width: "100%" }}
+                options={options}
+              />
+              {error && <small style={{ color: "red" }}>{error.message}</small>}
+            </>
+          )}
+        />
+      </Form.Item>
+    </>
   );
 };
 

@@ -9,12 +9,21 @@ type TFormProps = {
 
 type TFormConfig<T extends FieldValues = FieldValues> = {
   defaultValues?: T;
+  resolver?: any;
 };
 
-const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
+const PHForm = ({
+  onSubmit,
+  children,
+  defaultValues,
+  resolver,
+}: TFormProps) => {
   const formConfig: TFormConfig = {};
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
+  }
+  if (resolver) {
+    formConfig["resolver"] = resolver;
   }
 
   const methods = useForm(formConfig);
