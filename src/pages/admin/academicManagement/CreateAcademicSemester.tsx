@@ -1,31 +1,86 @@
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import PHInupt from "../../../components/form/PHInupt";
-import { Button, Col, Flex } from "antd";
+import { Button, Card, Col, Flex, Typography } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
+import { monthOptions } from "../../../constants/global";
+
+const { Title } = Typography;
+
+const nameOptions = [
+  { value: "01", label: "Autumn" },
+  { value: "02", label: "Summer" },
+  { value: "03", label: "Fall" },
+];
+
+const currentYear = new Date().getFullYear();
+const yearOptions = [0, 1, 2, 3, 4, 5].map((number) => ({
+  value: String(currentYear + number),
+  label: String(currentYear + number),
+}));
 
 const CreateAcademicSemester = () => {
-  const onsubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const name = nameOptions.find((item) => item.value === data.name)?.label;
+
     const semesterData = {
-      name: data.name,
-      code: data.value,
+      name,
+      code: data.name,
+      year: data.year,
+      startMonth: data.startMonth,
+      endMonth: data.endMonth,
     };
+
     console.log(semesterData);
   };
 
-  const nameOptions = [
-    { value: "01", label: "Autumn" },
-    { value: "02", label: "Summer" },
-    { value: "03", label: "Fall" },
-  ];
   return (
-    <Flex justify="center" align="middle" style={{ height: "100vh" }}>
-      <Col span={6}>
-        <PHForm onSubmit={onsubmit}>
-          <PHInupt type="text" name="name" label="Name" />
-          <PHSelect label="Name" name="name" options={nameOptions} />
-          <Button htmlType="submit">Submit</Button>
-        </PHForm>
+    <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
+      <Col xs={22} sm={18} md={12} lg={8}>
+        <Card bordered={false} style={{ borderRadius: 12 }}>
+          <Title level={3} style={{ textAlign: "center", marginBottom: 24 }}>
+            Create Academic Semester
+          </Title>
+
+          <PHForm onSubmit={onSubmit}>
+            <PHSelect
+              label="Semester Name"
+              name="name"
+              placeholder="Select semester"
+              options={nameOptions}
+            />
+
+            <PHSelect
+              label="Year"
+              name="year"
+              placeholder="Select year"
+              options={yearOptions}
+            />
+
+            <PHSelect
+              label="Start Month"
+              name="startMonth"
+              placeholder="Select start month"
+              options={monthOptions}
+            />
+
+            <PHSelect
+              label="End Month"
+              name="endMonth"
+              placeholder="Select end month"
+              options={monthOptions}
+            />
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              block
+              style={{ marginTop: 16 }}
+            >
+              Create Semester
+            </Button>
+          </PHForm>
+        </Card>
       </Col>
     </Flex>
   );
