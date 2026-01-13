@@ -7,6 +7,12 @@ const academicManagemantApi = baseApi.injectEndpoints({
         url: "/academic-semesters",
         method: "GET",
       }),
+      transformResponse: (response: { data: unknown; meta?: unknown }) => {
+        return {
+          data: response.data,
+          meta: response?.meta,
+        };
+      },
     }),
     createAcademicManagement: builder.mutation({
       query: (data) => ({
