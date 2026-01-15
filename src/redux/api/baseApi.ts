@@ -8,7 +8,6 @@ import type {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { toast } from "sonner";
-// import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
