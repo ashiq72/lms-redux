@@ -1,27 +1,35 @@
-import { Form } from "antd";
-import { Controller } from "react-hook-form";
+import { Form, Input } from "antd";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface PHInputProps {
-  type: string;
+  type?: string;
   name: string;
   label?: string;
+  placeholder?: string;
 }
 
-const PHInupt = ({ type, name, label }: PHInputProps) => {
+const PHInupt = ({ type = "text", name, label, placeholder }: PHInputProps) => {
+  const { control } = useFormContext();
+
   return (
-    <div
-      style={{ marginBottom: "20px", display: "flex", flexDirection: "column" }}
-    >
-      {/* {label ? label : null} */}
-      <Controller
-        name={name}
-        render={({ field }) => (
-          <Form.Item label={label} name={name}>
-            <input type={type} id={name} {...field} />
-          </Form.Item>
-        )}
-      />
-    </div>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: { error } }) => (
+        <Form.Item
+          label={label}
+          validateStatus={error ? "error" : ""}
+          help={error?.message}
+        >
+          <Input
+            {...field}
+            type={type}
+            placeholder={placeholder || label}
+            size="large"
+          />
+        </Form.Item>
+      )}
+    />
   );
 };
 
