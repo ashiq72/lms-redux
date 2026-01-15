@@ -1,13 +1,14 @@
-import type { FieldValues, SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
 import PHInupt from "../../../components/form/PHInupt";
 import { Button, Col, Divider, Row, Card } from "antd";
-import { useGetAllAcademicManagementsQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useGetAllAcademicSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import PHSelect from "../../../components/form/PHSelect";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import type { TStudentForm } from "../../../types/userManagement.type";
 //! This is only for development
 //! Should be removed
-const studentDefaultValues = {
+const studentDefaultValues: TStudentForm = {
   name: {
     firstName: "I am ",
     middleName: "Student",
@@ -15,7 +16,7 @@ const studentDefaultValues = {
   },
   gender: "male",
 
-  bloogGroup: "A+",
+  bloodGroup: "A+",
 
   contactNo: "1235678",
   emergencyContactNo: "987-654-3210",
@@ -38,21 +39,21 @@ const studentDefaultValues = {
     address: "789 Pine St, Villageton",
   },
 
-  admissionSemester: "65bb60ebf71fdd1add63b1c0",
-  academicDepartment: "65b4acae3dc8d4f3ad83e416",
+  // admissionSemester: "65bb60ebf71fdd1add63b1c0",
+  // academicDepartment: "65b4acae3dc8d4f3ad83e416",
 };
 export default function CreateStudent() {
   const [createStudent, { data, error }] = useCreateStudentMutation();
   console.log({ data, error });
 
   const { data: sData, isLoading: sIsLoading } =
-    useGetAllAcademicManagementsQuery(undefined);
+    useGetAllAcademicSemestersQuery(undefined);
   const semesterOptions = sData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
   }));
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<TStudentForm> = (data) => {
     const studentData = {
       password: "student123",
       student: data,
@@ -66,7 +67,10 @@ export default function CreateStudent() {
     <Row justify="center">
       <Col span={24}>
         <Card bordered style={{ borderRadius: 12 }}>
-          <PHForm onSubmit={onSubmit} defaultValues={studentDefaultValues}>
+          <PHForm<TStudentForm>
+            onSubmit={onSubmit}
+            defaultValues={studentDefaultValues}
+          >
             {/* ========== Personal Info ========== */}
             <Divider orientation="left">👤 Personal Information</Divider>
             <Row gutter={12}>
@@ -109,7 +113,7 @@ export default function CreateStudent() {
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt type="text" name="bloogGroup" label="Blood Group" />
+                <PHInupt type="text" name="bloodGroup" label="Blood Group" />
               </Col>
             </Row>
 
@@ -212,9 +216,9 @@ export default function CreateStudent() {
             {/* ========== Academic Info ========== */}
             <Divider orientation="left">🎓 Academic Info</Divider>
             <Row gutter={12}>
-              <Col span={24} md={8}>
+              {/* <Col span={24} md={8}>
                 <PHInupt type="text" name="id" label="Student ID" />
-              </Col>
+              </Col> */}
               <Col span={24} md={8}>
                 <PHSelect
                   options={semesterOptions}
