@@ -1,11 +1,11 @@
 import type { SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import PHInupt from "../../../components/form/PHInupt";
 import { Button, Col, Divider, Row, Card } from "antd";
 import { useGetAllAcademicSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import PHSelect from "../../../components/form/PHSelect";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
 import type { TStudentForm } from "../../../types/userManagement.type";
+import PHInput from "../../../components/form/PHInput";
 //! This is only for development
 //! Should be removed
 const studentDefaultValues: TStudentForm = {
@@ -75,27 +75,27 @@ export default function CreateStudent() {
             <Divider orientation="left">👤 Personal Information</Divider>
             <Row gutter={12}>
               <Col span={24} md={8}>
-                <PHInupt type="text" name="name.firstName" label="First Name" />
+                <PHInput type="text" name="name.firstName" label="First Name" />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="name.middleName"
                   label="Middle Name"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt type="text" name="name.lastName" label="Last Name" />
+                <PHInput type="text" name="name.lastName" label="Last Name" />
               </Col>
 
               <Col span={24} md={8}>
-                <PHInupt type="email" name="email" label="Email" />
+                <PHInput type="email" name="email" label="Email" />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt type="text" name="contactNo" label="Contact No" />
+                <PHInput type="text" name="contactNo" label="Contact No" />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="emergencyContactNo"
                   label="Emergency Contact"
@@ -103,17 +103,17 @@ export default function CreateStudent() {
               </Col>
 
               <Col span={24} md={8}>
-                <PHInupt type="date" name="dateOfBirth" label="Date of Birth" />
+                <PHInput type="date" name="dateOfBirth" label="Date of Birth" />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="gender"
                   label="Gender (male/female)"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt type="text" name="bloodGroup" label="Blood Group" />
+                <PHInput type="text" name="bloodGroup" label="Blood Group" />
               </Col>
             </Row>
 
@@ -121,14 +121,14 @@ export default function CreateStudent() {
             <Divider orientation="left">🏠 Address</Divider>
             <Row gutter={12}>
               <Col span={24} md={12}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="presentAddress"
                   label="Present Address"
                 />
               </Col>
               <Col span={24} md={12}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="permanentAddress"
                   label="Permanent Address"
@@ -140,21 +140,21 @@ export default function CreateStudent() {
             <Divider orientation="left">👨‍👩‍👧 Guardian Information</Divider>
             <Row gutter={12}>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.fatherName"
                   label="Father Name"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.fatherOccupation"
                   label="Father Occupation"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.fatherContactNo"
                   label="Father Contact"
@@ -162,21 +162,21 @@ export default function CreateStudent() {
               </Col>
 
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.motherName"
                   label="Mother Name"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.motherOccupation"
                   label="Mother Occupation"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="guardian.motherContactNo"
                   label="Mother Contact"
@@ -188,24 +188,24 @@ export default function CreateStudent() {
             <Divider orientation="left">🏘 Local Guardian</Divider>
             <Row gutter={12}>
               <Col span={24} md={6}>
-                <PHInupt type="text" name="localGuardian.name" label="Name" />
+                <PHInput type="text" name="localGuardian.name" label="Name" />
               </Col>
               <Col span={24} md={6}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="localGuardian.occupation"
                   label="Occupation"
                 />
               </Col>
               <Col span={24} md={6}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="localGuardian.contactNo"
                   label="Contact No"
                 />
               </Col>
               <Col span={24} md={6}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="localGuardian.address"
                   label="Address"
@@ -217,7 +217,7 @@ export default function CreateStudent() {
             <Divider orientation="left">🎓 Academic Info</Divider>
             <Row gutter={12}>
               {/* <Col span={24} md={8}>
-                <PHInupt type="text" name="id" label="Student ID" />
+                <PHInput type="text" name="id" label="Student ID" />
               </Col> */}
               <Col span={24} md={8}>
                 <PHSelect
@@ -229,14 +229,14 @@ export default function CreateStudent() {
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="academicDepartment"
                   label="Department ID"
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInupt
+                <PHInput
                   type="text"
                   name="academicFaculty"
                   label="Faculty ID"

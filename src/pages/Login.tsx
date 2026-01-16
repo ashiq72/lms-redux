@@ -5,7 +5,7 @@ import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
-import PHInupt from "../components/form/PHInupt";
+import PHInput from "../components/form/PHInput";
 import { Row } from "antd";
 import type { FieldValues } from "react-hook-form";
 
@@ -36,9 +36,9 @@ export default function Login() {
       <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <div>Login Page</div>
 
-        <PHInupt type="text" name="id" label="Id" />
+        <PHInput type="text" name="id" label="Id" />
 
-        <PHInupt type="password" name="password" label="Password" />
+        <PHInput type="password" name="password" label="Password" />
 
         <button type="submit">Login</button>
       </PHForm>
