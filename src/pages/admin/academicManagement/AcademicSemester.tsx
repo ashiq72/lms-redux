@@ -95,9 +95,9 @@ const AcademicSemester = () => {
   );
 
   const onChange: TableProps<TTableData>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
     if (extra.action == "filter") {
