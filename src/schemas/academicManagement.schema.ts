@@ -6,3 +6,7 @@ export const academicSemesterSchema = z.object({
   startMonth: z.string().min(1, "Please select a Start Month"),
   endMonth: z.string().min(1, "Please select a End Month"),
 });
+
+export const academicFacultySchema = z.object({});
+
+export const academicDepartmentSchema = z.object({});
