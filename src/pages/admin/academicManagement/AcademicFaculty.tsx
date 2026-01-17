@@ -1,9 +1,5 @@
-// import { useCreateAcademicFacultyMutation } from "../../../redux/features/admin/academicManagement.api";
-
 const AcademicFaculty = () => {
-  // const [createAcademicFaculty] = useCreateAcademicFacultyMutation();
-
-  return <div></div>;
+  return <div>AcademicFaculty</div>;
 };
 
 export default AcademicFaculty;

@@ -7,6 +7,11 @@ export const academicSemesterSchema = z.object({
   endMonth: z.string().min(1, "Please select a End Month"),
 });
 
-export const academicFacultySchema = z.object({});
+export const academicFacultySchema = z.object({
+  name: z.string().min(1, "Please write a name"),
+});
 
-export const academicDepartmentSchema = z.object({});
+export const academicDepartmentSchema = z.object({
+  name: z.string().min(1, "Department name is required"),
+  academicFaculty: z.string().min(1, "Faculty is required"),
+});

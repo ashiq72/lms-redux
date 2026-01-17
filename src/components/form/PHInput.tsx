@@ -8,7 +8,7 @@ interface PHInputProps {
   placeholder?: string;
 }
 
-const PHInupt = ({ type = "text", name, label, placeholder }: PHInputProps) => {
+const PHInput = ({ type = "text", name, label, placeholder }: PHInputProps) => {
   const { control } = useFormContext();
 
   return (
@@ -33,4 +33,4 @@ const PHInupt = ({ type = "text", name, label, placeholder }: PHInputProps) => {
   );
 };
 
-export default PHInupt;
+export default PHInput;
