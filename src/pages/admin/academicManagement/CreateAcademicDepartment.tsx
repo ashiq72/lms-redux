@@ -6,12 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
 import PHSelect from "../../../components/form/PHSelect";
-
 import {
   useCreateAcademicDepartmentMutation,
   useGetAcademicFacultiesQuery,
 } from "../../../redux/features/admin/academicManagement.api";
-
 import { academicDepartmentSchema } from "../../../schemas/academicManagement.schema";
 import PHInput from "../../../components/form/PHInput";
 
@@ -37,14 +35,17 @@ const CreateAcademicDepartment = () => {
     const toastId = toast.loading("Creating academic department...");
 
     try {
-      // await createAcademicDepartment(data).unwrap();
-      console.log(data);
+      await createAcademicDepartment(data).unwrap();
 
       toast.success("Academic department created successfully", {
         id: toastId,
       });
-    } catch {
-      toast.error("Failed to create academic department", { id: toastId });
+    } catch (error: unknown) {
+      const apiError = error as { data?: { message?: string } };
+      toast.error(
+        apiError?.data?.message || "Failed to create academic department",
+        { id: toastId }
+      );
     }
   };
 

@@ -4,9 +4,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
-
 import PHForm from "../../../components/form/PHForm";
-
 import { useCreateAcademicFacultyMutation } from "../../../redux/features/admin/academicManagement.api";
 import { academicFacultySchema } from "../../../schemas/academicManagement.schema";
 import PHInput from "../../../components/form/PHInput";

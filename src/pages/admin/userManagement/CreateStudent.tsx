@@ -216,9 +216,6 @@ export default function CreateStudent() {
             {/* ========== Academic Info ========== */}
             <Divider orientation="left">🎓 Academic Info</Divider>
             <Row gutter={12}>
-              {/* <Col span={24} md={8}>
-                <PHInput type="text" name="id" label="Student ID" />
-              </Col> */}
               <Col span={24} md={8}>
                 <PHSelect
                   options={semesterOptions}
