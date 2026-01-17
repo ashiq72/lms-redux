@@ -1,7 +1,10 @@
 import type { SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
 import { Button, Col, Divider, Row, Card } from "antd";
-import { useGetAllAcademicSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import {
+  useGetAcademicFacultiesQuery,
+  useGetAllAcademicSemestersQuery,
+} from "../../../redux/features/admin/academicManagement.api";
 import PHSelect from "../../../components/form/PHSelect";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
 import type { TStudentForm } from "../../../types/userManagement.type";
@@ -51,6 +54,13 @@ export default function CreateStudent() {
   const semesterOptions = sData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
+  }));
+
+  const { data: fData, isLoading: fIsLoading } =
+    useGetAcademicFacultiesQuery(undefined);
+  const facultyOptions = fData?.data?.map((item) => ({
+    value: item._id,
+    label: `${item.name}`,
   }));
 
   const onSubmit: SubmitHandler<TStudentForm> = (data) => {
@@ -226,12 +236,15 @@ export default function CreateStudent() {
                 />
               </Col>
               <Col span={24} md={8}>
-                <PHInput
-                  type="text"
-                  name="academicDepartment"
-                  label="Department ID"
+                <PHSelect
+                  options={facultyOptions}
+                  disabled={fIsLoading}
+                  name="academicFaculty"
+                  label="Academic Faculty ID"
+                  placeholder="Select Academic faculty"
                 />
               </Col>
+
               <Col span={24} md={8}>
                 <PHInput
                   type="text"
