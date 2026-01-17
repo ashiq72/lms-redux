@@ -2,6 +2,7 @@ import type { SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
 import { Button, Col, Divider, Row, Card } from "antd";
 import {
+  useGetAcademicDepartmentsQuery,
   useGetAcademicFacultiesQuery,
   useGetAllAcademicSemestersQuery,
 } from "../../../redux/features/admin/academicManagement.api";
@@ -59,6 +60,13 @@ export default function CreateStudent() {
   const { data: fData, isLoading: fIsLoading } =
     useGetAcademicFacultiesQuery(undefined);
   const facultyOptions = fData?.data?.map((item) => ({
+    value: item._id,
+    label: `${item.name}`,
+  }));
+
+  const { data: dData, isLoading: dIsLoading } =
+    useGetAcademicDepartmentsQuery(undefined);
+  const departmentOptions = dData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name}`,
   }));
@@ -244,16 +252,16 @@ export default function CreateStudent() {
                   placeholder="Select Academic faculty"
                 />
               </Col>
-
               <Col span={24} md={8}>
-                <PHInput
-                  type="text"
-                  name="academicFaculty"
-                  label="Faculty ID"
+                <PHSelect
+                  options={departmentOptions}
+                  disabled={dIsLoading}
+                  name="academicDepartment"
+                  label="Academic Department ID"
+                  placeholder="Select Academic department"
                 />
               </Col>
             </Row>
-
             {/* ========== Submit ========== */}
             <Divider />
             <Row justify="end">
