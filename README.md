@@ -29,7 +29,7 @@
 
   <br />
 
-  <a href="https://your-live-demo-link.com">
+  <a href="https://universityadmin.vercel.app">
     <img src="https://placehold.co/1000x500/2e3d49/ffffff?text=Dashboard+Preview+Coming+Soon" alt="Dashboard Preview" width="100%" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.2);">
   </a>
 
