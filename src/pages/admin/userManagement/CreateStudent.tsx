@@ -106,7 +106,7 @@ export default function CreateStudent() {
       await createStudent(formData).unwrap();
 
       toast.success("Student created successfully", { id: toastId });
-    } catch (err) {
+    } catch {
       toast.error("Failed to create student", { id: toastId });
     }
   };
