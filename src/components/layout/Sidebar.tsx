@@ -17,6 +17,7 @@ const userRole = {
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
   let sidebarItems;
+  console.log(user!.role);
 
   switch (user!.role) {
     case userRole.ADMIN:
